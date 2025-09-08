@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "bullmq": "^5.58.5",
+    "dotenv": "^17.2.2",
+    "ioredis": "^5.7.0",
+    "mongoose": "^8.18.0",
+    "node-cron": "^4.2.1"
+  }
+}
