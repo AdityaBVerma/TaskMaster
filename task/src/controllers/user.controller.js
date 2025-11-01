@@ -196,6 +196,7 @@ const getCurrentUser = asyncHandler( async (req, res) => {
 })
 
 const updateAccountDetails = asyncHandler( async (req, res) => {
+    const redisClient = req.app.locals.redis;
     const {fullName, email} = req.body
     if (!fullName || !email) {
         throw new ApiError(400, "both fullname and email are required")
@@ -212,6 +213,7 @@ const updateAccountDetails = asyncHandler( async (req, res) => {
             new: true
         }
     ).select("-password -refreshToken")
+    await redisClient.del(`user:${updatedUser._id}`)
     return res
     .status(200)
     .json(new ApiResponse(200, updatedUser, "Account details updated successfully"))
