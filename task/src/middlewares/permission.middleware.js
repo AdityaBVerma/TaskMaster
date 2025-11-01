@@ -22,7 +22,7 @@ export const permission = (rolesAllowed = []) =>
         let userRole = null
         if (workspace.owner?.toString() === userId.toString()) {
         userRole = "owner"
-        } else if (workspace.admins?.map(String).includes(userId.toString())) {
+        } else if (workspace.admin?.map(String).includes(userId.toString())) {
         userRole = "admin"
         } else if (workspace.contributors?.map(String).includes(userId.toString())) {
         userRole = "contributor"
@@ -36,7 +36,7 @@ export const permission = (rolesAllowed = []) =>
         throw new ApiError(403, "You do not have permission for this action")
         }
         req.userRole = userRole
-
+        req.workspace = workspace
         next()
     }
 );
