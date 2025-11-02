@@ -9,7 +9,8 @@ import {
     assignContributor,
     deleteWorkspace,
     removeAdmin,
-    removeContributor
+    removeContributor,
+    getWorkspace
 } from "../controllers/workspace.controller.js";
 
 const router = Router()
@@ -22,7 +23,7 @@ export const workspacePermissions = {
     contribute: ["owner", "admin", "contributor"]
 };
 
-router.route("/create").get(createWorkspace);
+router.route("/create").post(createWorkspace);
 
 router.route("/update/:wid").patch(permission(workspacePermissions.manage), updateWorkspace);
 
@@ -36,6 +37,6 @@ router.route("/removeAdmin/:wid").patch(permission(workspacePermissions.full), r
 
 router.route("/removeContributor/:wid").patch(permission(workspacePermissions.manage), removeContributor);
 
-
+router.route("/get/:wid").get(permission(workspacePermissions.contribute), getWorkspace);
 
 export default router
