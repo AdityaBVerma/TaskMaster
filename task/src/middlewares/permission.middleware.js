@@ -1,13 +1,16 @@
 import {Workspace} from "../models/workspace.model.js";
 import { ApiError } from "../utils/ApiError.js";
 import asyncHandler from "../utils/asyncHandler.js";
+import { isValidObjectId } from "mongoose";
 
 export const permission = (rolesAllowed = []) =>
     asyncHandler(async (req, _, next) => {
         const redisClient = req.app.locals.redis
         const wid = req.params.wid
         const userId = req.user._id
-
+        if(!wid || !isValidObjectId(wid)){
+            throw new ApiError(400, "Invalid workspace Id");
+        }
         let workspace = await redisClient.get(`workspace:${wid}`)
         if (workspace) {
             workspace = JSON.parse(workspace)
