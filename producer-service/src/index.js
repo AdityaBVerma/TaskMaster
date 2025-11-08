@@ -12,7 +12,8 @@ connectDB()
         console.log("※※ CRON service started ✅ ※※");
 
         global.redis = redisClient;
-
+        //TODO: job function too
+        //FIXME: i think i should make them into a single function with type of worker passed as parameters
         startMessageProducer(redisClient);
         startEmailProducer(redisClient);
     })

@@ -1,16 +1,17 @@
-import { createClient } from "redis";
+import Redis from "ioredis"
 
 const connectRedis = async () => {
     try {
-        const client = createClient({
-            url: process.env.REDIS_URL || "redis://localhost:6379"
-        });
+        const redisUrl = process.env.REDIS_URL || "redis://localhost:6379"
+        const client = new Redis(redisUrl)
 
-        client.on("error", (err) => console.error("Redis Client Error", err));
-        await client.connect();
-
-        console.log("※※ Redis Connected (Cron) ※※");
-        return client;
+        client.on("connect", () => {
+            console.log("※※ Redis Connected (Cron) ※※")
+        })
+        client.on("error", (err) => {
+            console.error("Redis Client Error:", err)
+        })
+        return client
     } catch (error) {
         console.error("Redis connection failed in cron/cache/index.js:", error);
         process.exit(1);

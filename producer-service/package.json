@@ -5,5 +5,18 @@
     "ioredis": "^5.7.0",
     "mongoose": "^8.18.0",
     "node-cron": "^4.2.1"
-  }
+  },
+  "name": "producer-service",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "type": "module"
 }
